@@ -11,6 +11,15 @@
 
 PWFILE=~/.pwman.rc
 DMENU=dmenu
+SEEDFILE=~/.seed
+
+generate_seed() {
+    echo 'Generating seed file. This could take a few minutes.' 1>&2
+    dd if=/dev/random of=$SEEDFILE bs=1 count=512
+}
+
+
+[ -f $SEEDFILE ] || generate_seed
 [ -f ~/.dmenurc ] && . ~/.dmenurc
 
 choice=`cat "$PWFILE" | $DMENU -l 7`
